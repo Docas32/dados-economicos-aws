@@ -1,0 +1,48 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AthenaQuery",
+            "Effect": "Allow",
+            "Action": [
+                "athena:StartQueryExecution",
+                "athena:GetQueryExecution",
+                "athena:GetQueryResults",
+                "athena:StopQueryExecution",
+                "athena:GetWorkGroup"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "GlueCatalogRead",
+            "Effect": "Allow",
+            "Action": [
+                "glue:GetTable",
+                "glue:GetTables",
+                "glue:GetDatabase",
+                "glue:GetDatabases",
+                "glue:GetPartitions"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "ReadDataLake",
+            "Effect": "Allow",
+            "Action": ["s3:GetObject", "s3:ListBucket"],
+            "Resource": [
+                "arn:aws:s3:::joao-medalhao-bcb-dados",
+                "arn:aws:s3:::joao-medalhao-bcb-dados/bronze/*",
+                "arn:aws:s3:::joao-medalhao-bcb-dados/silver/*",
+                "arn:aws:s3:::joao-medalhao-bcb-dados/gold/*"
+            ]
+        },
+        {
+            "Sid": "WriteAthenaResults",
+            "Effect": "Allow",
+            "Action": ["s3:GetObject", "s3:PutObject", "s3:ListBucket"],
+            "Resource": [
+                "arn:aws:s3:::joao-medalhao-bcb-dados/athena-query-results/*"
+            ]
+        }
+    ]
+}
